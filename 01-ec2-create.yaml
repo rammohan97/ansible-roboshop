@@ -6,6 +6,7 @@
     sg_id: sg-0a716b1b175b22097
     instance:
     - mongodb
+    - redis
   tasks:
     - name: Create EC2 Instance
       amazon.aws.ec2_instance:
@@ -25,10 +26,10 @@
 
     - name: Print EC2 Public IP
       ansible.builtin.debug: 
-        msg: "{{ item.instances[0].public_ip_address }}"
+        msg: "{{ item.instances[*].public_ip_address }}"
       loop: "{{ ec2_output.results }}"
 
     - name: Print EC2 Private IP
       ansible.builtin.debug: 
-        msg: "{{ item.instances[0].private_ip_address }}"
+        msg: "{{ item.instances[*].private_ip_address }}"
       loop: "{{ ec2_output.results }}"
