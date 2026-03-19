@@ -19,9 +19,9 @@
       loop: "{{ instance }}"
       register: ec2_output
 
-    - name: Print EC2 Output
-      ansible.builtin.debug:
-        msg: "{{ ec2_output }}"
+    # - name: Print EC2 Output
+    #   ansible.builtin.debug:
+    #     msg: "{{ ec2_output }}"
 
     - name: Print EC2 Public IP
       ansible.builtin.debug: 
