@@ -5,10 +5,11 @@
     ami_id: ami-0220d79f3f480ecf5
     sg_id: sg-0a716b1b175b22097
     instance:
-    - mongodb
-    - redis
-    - mysql
-    - rabbitmq
+    # We can pass instances names as a command line argument while running the playbook like below by using -e option
+    # - mongodb
+    # - redis
+    # - mysql
+    # - rabbitmq
   tasks:
     - name: Create EC2 Instance
       amazon.aws.ec2_instance:
