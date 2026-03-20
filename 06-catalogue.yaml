@@ -54,3 +54,21 @@
         path: /etc/systemd/system/catalogue.service
         regexp: 'mongodb://.*:27017'
         replace: 'mongodb://{{ mongodb_ip }}:27017'
+
+    - name: Copy Mongo Repository file
+      ansible.builtin.copy:
+        src: mongo.repo
+        dest: /etc/yum.repos.d/mongo.repo
+
+    - name: Install Mongodb Client
+      ansible.builtin.package:
+        name: mongodb-mongosh
+        state: present
+
+    - name: Connect to mongodb catalogue
+      ansible.builtin.command: mongosh {{ mongodb_ip}} --quiet --eval "db.getMongo().getDBNames().indexOf('catalogue')"
+      register: catalogue_output
+
+    - name: Print catalogue output
+      ansible.builtin.debug:
+        msg: "{{ catalogue_output }}"
