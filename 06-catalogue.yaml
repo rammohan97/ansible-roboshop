@@ -46,6 +46,6 @@
 
     - name: Update MongodB URL 
       ansible.builtin.replace:
-        path: /etc/systemd/system/catalogue.service
+        path: ./catalogue.service
         regexp: 'mongodb://.*:27017'
         replace: 'mongodb://{{ mongodb_ip }}:27017'
