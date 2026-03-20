@@ -76,7 +76,7 @@
         state: present
 
     - name: Connect to mongodb catalogue
-      ansible.builtin.shell: mongosh {{ mongodb_ip }} --quiet --eval "db.getMongo().getDBNames().indexOf('catalogue')"
+      ansible.builtin.command: mongosh {{ mongodb_ip }} --quiet --eval "db.getMongo().getDBNames().indexOf('catalogue')"
       register: catalogue_output
 
     - name: Print catalogue output
