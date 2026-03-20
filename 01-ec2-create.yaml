@@ -7,6 +7,8 @@
     instance:
     - mongodb
     - redis
+    - mysql
+    - rabbitmq
   tasks:
     - name: Create EC2 Instance
       amazon.aws.ec2_instance:
