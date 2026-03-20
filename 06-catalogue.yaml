@@ -81,4 +81,8 @@
 
     - name: Print catalogue output
       ansible.builtin.debug:
-        msg: "{{ catalogue_output }}"
+        msg: "Catalogue Output: {{ catalogue_output }}"
+
+    - name: Load products into mongodb if not already loaded
+      ansible.builtin.shell: mongosh --host {{ mongodb_ip }} </app/db/master-data.js
+      when: catalogue_output.stdout < 0
