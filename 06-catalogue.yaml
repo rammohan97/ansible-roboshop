@@ -44,8 +44,13 @@
       community.general.npm:
         path: /app
 
+    - name: Copy Catalogue Service systemd file
+      ansible.builtin.copy:
+        src: catalogue.service
+        dest: /etc/systemd/system/catalogue.service
+
     - name: Update MongodB URL 
       ansible.builtin.replace:
-        path: ./catalogue.service
+        path: /etc/systemd/system/catalogue.service
         regexp: 'mongodb://.*:27017'
         replace: 'mongodb://{{ mongodb_ip }}:27017'
