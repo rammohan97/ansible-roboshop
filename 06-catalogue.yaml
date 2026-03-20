@@ -1,6 +1,9 @@
 - name: Setup Catalogue Service
   hosts: catalogue
   become: true
+  vars:
+    mongodb_ip: "{{ hostvars['mongodb'].ansible_host }}"
+  
   tasks:
     - name: Disable default NodeJS module
       ansible.builtin.command: dnf module disable nodejs -y
@@ -36,3 +39,13 @@
         src: /tmp/catalogue.zip
         dest: /app
         remote_src: yes
+
+    - name: Install NodeJS dependencies
+      community.general.npm:
+        path: /app
+
+    - name: Update MongodB URL 
+      ansible.builtin.replace:
+        path: /etc/systemd/system/catalogue.service
+        regexp: 'mongodb://.*:27017'
+        replace: 'mongodb://{{ mongodb_ip }}:27017'
