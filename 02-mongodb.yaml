@@ -6,3 +6,21 @@
       ansible.builtin.copy:
         src: mongo.repo
         dest: /etc/yum.repos.d/mongo.repo
+
+    - name: Install Mongodb
+      ansible.builtin.package:
+        name: mongodb-org
+        state: present
+
+    - name: Replace a bindIp in Mongodb Config file
+      ansible.builtin.replace:
+        path: /etc/mongod.conf
+        regexp: '127.0.0.1'
+        replace: '0.0.0.0'
+
+    - name: Start and Enable Mongodb Services
+      ansible.builtin.service:
+        name: mongodd
+        state: started
+        enabled: true
+
